@@ -1,9 +1,37 @@
-import React from 'react'
+import { useState, useEffect } from "react"
+import { products } from "../../productsMock"
+import ItemList from "../itemList/ItemList"
+import {useParams} from "react-router-dom"
 
-const ItemListContainer = ( {greeting} ) => {
-    return (
-    <div>
-        <h2>{greeting}</h2>
+const ItemListContainer = () => {
+
+  const { categoryName } = useParams()
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+
+    const productosFiltered = products.filter( productos => productos.category === categoryName )
+
+    const task = new Promise((resolve, reject) => {      
+      setTimeout(() => {
+        resolve( categoryName ? productosFiltered : products  )
+      }, 500)
+    })
+
+    task
+      .then((res) => {
+        setItems(res)
+      })
+      .catch((err) => {
+        console.log("se rechazo")
+      })
+
+    console.log("se hizo la peticion")
+  }, [ categoryName ])
+
+  return (
+    <div className="light">
+      <ItemList items={items} />
     </div>
   )
 }

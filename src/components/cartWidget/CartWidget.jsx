@@ -1,12 +1,23 @@
-import "./CartWidget.css"
-import { MdOutlineShoppingCart } from "react-icons/md"
+// rafce --> export default || rafc --> export nombrado
 
-const CartWidget = () => {
+import "./CartWidget.css"
+import { BsFillCartCheckFill } from "react-icons/bs"
+import { Link } from "react-router-dom"
+
+export const CartWidget = () => {
   return (
-    <div className="cartContainer">
-        <MdOutlineShoppingCart size={25} color={"white"}/>
-    </div>
+    <Link to="/cart" >
+      <div className="container-cart">
+        <BsFillCartCheckFill
+          style={{
+            fontSize: "2rem",
+            color: "white",
+          }}
+        />
+        <div className="bubble-counter">
+          <span>5</span>
+        </div>
+      </div>
+    </Link>
   )
 }
-
-export default CartWidget
